@@ -1,25 +1,32 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import styled from "styled-components"
+import GlobalStyles from '../src/styles/globalStyles'
+import StartPage from "./components/StartPage";
 
 function App() {
+  const [startGame, setStartGame] = React.useState(false);
+
+  const startPageData = {
+    startGame,
+    setStartGame,
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <StyedMainContainer>
+      <GlobalStyles></GlobalStyles>
+      <StartPage startPageData={startPageData}/>
+    </StyedMainContainer>
   );
 }
+
+const StyedMainContainer = styled.main`
+  width:100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: #FB6B6B;
+  `
 
 export default App;
