@@ -3,6 +3,7 @@ import styled from "styled-components"
 import GlobalStyles from '../src/styles/globalStyles'
 import StartPage from "./components/StartPage";
 import Header from "./components/Header";
+import {cards} from './Deck'
 
 function App() {
   const [startGame, setStartGame] = React.useState(false);
@@ -33,5 +34,4 @@ const StyedMainContainer = styled.main`
   align-items: center;
   background-color: #FB6B6B;
   `
-
 export default App;

@@ -37,5 +37,4 @@ const HeaderText = styled.h1`
     letter-spacing: 0.012em;
     color: #FFFFFF;
 `
-
 export default Header
