@@ -1,14 +1,15 @@
 import styled from "styled-components"
 import logoImage from "../assets/img/logo.png"
 
-function StartPage({startPage, setStartPage}){
+const StartPage = (props) => {
     return(
-        <InitialPageContainer>
+        <InitialPageContainer setDisplayInitialScreen = {props.startPageData.startGame}>
             <ImageContainer src={logoImage}>
             </ImageContainer>
             <TextElement>ZapRecall</TextElement>
             <ButtonElement
-                onClick={() => setStartPage(true)}>Iniciar Recall</ButtonElement>
+                onClick={() => props.startPageData.setStartGame(true)}
+                >Iniciar Recall</ButtonElement>
         </InitialPageContainer>
     )
 }
@@ -16,10 +17,10 @@ function StartPage({startPage, setStartPage}){
 const InitialPageContainer = styled.section`
     width: 100%;
     min-height: 100%;
-    display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: space-between;
+    display: ${props => !props.setDisplayInitialScreen ? "flex" : "none"};
 `
 const ImageContainer = styled.img`
     width: 35%;
@@ -34,7 +35,7 @@ const TextElement = styled.h1`
     text-align: center;
     font-family: 'Righteous', "cursive";
     font-style: normal;
-    font-weight: 700;
+    font-weight: 400;
     font-size: 36px;
     line-height: 45px;
     letter-spacing: -0.012em;
@@ -58,5 +59,4 @@ const ButtonElement = styled.button`
     color:#D70900;
     cursor: pointer;
 ` 
-
-export default StartPage
+export default StartPage;
