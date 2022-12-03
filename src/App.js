@@ -8,6 +8,7 @@ import {cards} from './Deck'
 
 function App() {
   const [startGame, setStartGame] = React.useState(false);
+  const [answered, setAnswered] = React.useState([]);
 
   const startPageData = {
     startGame,
@@ -18,7 +19,8 @@ function App() {
     setStartGame
   }
   const cardsData = {
-    startGame
+    startGame,
+
   }
 
   return (
