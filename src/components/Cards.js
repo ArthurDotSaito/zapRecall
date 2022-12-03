@@ -30,9 +30,8 @@ const Cards = (props) =>{
         setClickToOpenQuestion([]);
         setOpenedQuestion([]);
         setClickToOpenAnswer([]);
+        props.cardsData.setNumberOfCards(props.cardsData.numberOfCards + 1)
     }
-
-    console.log(enableEvent);
     
     const CardList = cards.map((card,index) => (
         <CardUL key={index + 1}>
@@ -182,5 +181,4 @@ const AnswerButton = styled.button`
     color: #FFFFFF;
     cursor: pointer;
 `
-
 export default Cards;
