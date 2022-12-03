@@ -10,6 +10,7 @@ const Cards = (props) =>{
     const [playIconTrue, setPlayIconTrue] = React.useState(true);
     const [clickToOpenAnswer, setClickToOpenAnswer] = React.useState([]);
     const [answerCategory, setAnswerCategory] = React.useState(cards.map(() => "notAnswered"));
+    const [enableEvent, setEnableEvent] = React.useState(cards.map(() => true));
     
     function openQuestion(index){
         setClickToOpenQuestion([...clickToOpenQuestion, index])
@@ -23,21 +24,26 @@ const Cards = (props) =>{
 
     function answerQuestion(category, index){
         answerCategory[index] = category;
+        enableEvent[index] = false;
         setAnswerCategory(answerCategory);
+        setEnableEvent(enableEvent);
         setClickToOpenQuestion([]);
         setOpenedQuestion([]);
         setClickToOpenAnswer([]);
     }
 
-    console.log(answerCategory)
+    console.log(enableEvent);
     
     const CardList = cards.map((card,index) => (
         <CardUL key={index + 1}>
             <FrontViewQuestion 
                 displayCard = {!clickToOpenQuestion.includes(index)} 
-                answeredCategory = {answerCategory[index]}>
+                answeredCategory = {answerCategory[index]}
+                disabled = {enableEvent[index]}
+                disa>
                 Pergunta {index+1}
                 <img 
+                    type = "button"
                     src = {(playIconTrue) && playIcon}
                     onClick = {() => openQuestion(index)}
                     alt = "playIcon"
@@ -107,11 +113,14 @@ const FrontViewQuestion = styled.li`
     font-weight: 700;
     font-size: 16px;
     line-height: 19px;
+    pointer-events: ${props => (props.disabled === false)&&"none"};
     color: ${props => (props.answeredCategory === "wrongAnswer") ? "#FF3030": 
             (props.answeredCategory === "almostRightAnswer") ? "#FF922E" :
             (props.answeredCategory === "rightAnswer") ? "#2FBE34" : "#333333"};
     text-decoration: ${props => (props.answeredCategory !== "notAnswered")&&"line-through"};
-
+    img{
+        cursor: pointer;
+    }
 `
 const BackViewQuestion = styled.li`
     width: 300px;
@@ -133,6 +142,7 @@ const BackViewQuestion = styled.li`
         width: 30px;
         height: 20px;
         align-self: end;
+        cursor: pointer;
     }
 
 `
@@ -170,8 +180,7 @@ const AnswerButton = styled.button`
     font-size: 12px;
     line-height: 14px;
     color: #FFFFFF;
-
-
+    cursor: pointer;
 `
 
 export default Cards;
