@@ -8,7 +8,9 @@ const Cards = (props) =>{
     const [clickToOpenQuestion, setClickToOpenQuestion] = React.useState([]);
     const [openedQuestion, setOpenedQuestion] = React.useState([]);
     const [playIconTrue, setPlayIconTrue] = React.useState(true);
-    const [clickToOpenAnswer, setClickToOpenAnswer] = React.useState([])
+    const [clickToOpenAnswer, setClickToOpenAnswer] = React.useState([]);
+    const [answerCategory, setAnswerCategory] = React.useState(cards.map(() => "notAnswered"));
+
     
     function openQuestion(index){
         setClickToOpenQuestion([...clickToOpenQuestion, index])
@@ -20,13 +22,19 @@ const Cards = (props) =>{
         setOpenedQuestion([]);
     }
 
-    function answerQuestion(category){
-        
+    function answerQuestion(category, index){
+        answerCategory[index] = category;
+        setAnswerCategory(answerCategory);
+        setClickToOpenQuestion([]);
+        setOpenedQuestion([]);
+        setClickToOpenAnswer([]);
     }
-
+    
     const CardList = cards.map((card,index) => (
         <CardUL key={index + 1}>
-            <FrontViewQuestion displayCard = {!clickToOpenQuestion.includes(index)}>
+            <FrontViewQuestion 
+                displayCard = {!clickToOpenQuestion.includes(index)} 
+                answeredCategory = {answerCategory[index]}>
                 Pergunta {index+1}
                 <img 
                     src = {(playIconTrue) && playIcon}
@@ -47,15 +55,15 @@ const Cards = (props) =>{
                 {card.answer}
                 <AnswerButtonContainer>
                     <AnswerButton 
-                        onClick = {() => answerQuestion("wrongAnswer")}
+                        onClick = {() => answerQuestion("wrongAnswer", index)}
                         backgroundColor = '#FF3030'>
                     Não lembrei</AnswerButton>
                     <AnswerButton 
-                        onClick = {() => answerQuestion("almostRightAnswer")}
+                        onClick = {() => answerQuestion("almostRightAnswer", index)}
                         backgroundColor = '#FF922E'>
                     Quase não lembrei</AnswerButton>
                     <AnswerButton 
-                        onClick = {() => answerQuestion("rightAnswer")}
+                        onClick = {() => answerQuestion("rightAnswer", index)}
                         backgroundColor = '#2FBE34'>
                     Zap!</AnswerButton>
                 </AnswerButtonContainer>
@@ -98,7 +106,9 @@ const FrontViewQuestion = styled.li`
     font-weight: 700;
     font-size: 16px;
     line-height: 19px;
-    color: #333333;
+    color: ${props => (props.answeredCategory === "wrongAnswer") ? "#FF3030": 
+            (props.answeredCategory === "almostRightAnswer") ? "#FF922E" :
+            (props.answeredCategory === "rightAnswer") ? "#2FBE34" : "#333333"};
 
 `
 const BackViewQuestion = styled.li`

@@ -20,7 +20,8 @@ function App() {
   }
   const cardsData = {
     startGame,
-
+    answered,
+    setAnswered
   }
 
   return (
