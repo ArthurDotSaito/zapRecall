@@ -46,6 +46,15 @@ const FrontViewQuestion = styled.li`
     background-color: #FFFFFF;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.15);
     border-radius: 5px;
+    font-family: 'Recursive', sans-serif;
+    padding-left: 15px;
+    padding-right: 15px;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 19px;
+    color: #333333;
+
 `
 const BackViewQuestion = styled.li = `
 `
