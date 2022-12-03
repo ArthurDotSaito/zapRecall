@@ -10,7 +10,6 @@ const Cards = (props) =>{
     const [playIconTrue, setPlayIconTrue] = React.useState(true);
     const [clickToOpenAnswer, setClickToOpenAnswer] = React.useState([]);
     const [answerCategory, setAnswerCategory] = React.useState(cards.map(() => "notAnswered"));
-
     
     function openQuestion(index){
         setClickToOpenQuestion([...clickToOpenQuestion, index])
@@ -29,6 +28,8 @@ const Cards = (props) =>{
         setOpenedQuestion([]);
         setClickToOpenAnswer([]);
     }
+
+    console.log(answerCategory)
     
     const CardList = cards.map((card,index) => (
         <CardUL key={index + 1}>
@@ -109,6 +110,7 @@ const FrontViewQuestion = styled.li`
     color: ${props => (props.answeredCategory === "wrongAnswer") ? "#FF3030": 
             (props.answeredCategory === "almostRightAnswer") ? "#FF922E" :
             (props.answeredCategory === "rightAnswer") ? "#2FBE34" : "#333333"};
+    text-decoration: ${props => (props.answeredCategory !== "notAnswered")&&"line-through"};
 
 `
 const BackViewQuestion = styled.li`
