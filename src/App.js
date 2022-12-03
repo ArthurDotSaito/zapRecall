@@ -3,6 +3,7 @@ import styled from "styled-components"
 import GlobalStyles from '../src/styles/globalStyles'
 import StartPage from "./components/StartPage";
 import Header from "./components/Header";
+import Cards from "./components/Cards";
 import {cards} from './Deck'
 
 function App() {
@@ -16,12 +17,16 @@ function App() {
     startGame,
     setStartGame
   }
+  const cardsData = {
+    startGame
+  }
 
   return (
     <StyedMainContainer>
       <GlobalStyles></GlobalStyles>
       <StartPage startPageData={startPageData}/>
       <Header headerData = {headerData}></Header>
+      <Cards cardsData = {cardsData}></Cards>
     </StyedMainContainer>
   );
 }
@@ -33,5 +38,6 @@ const StyedMainContainer = styled.main`
   flex-direction: column;
   align-items: center;
   background-color: #FB6B6B;
+  padding-bottom: 200px;
   `
 export default App;

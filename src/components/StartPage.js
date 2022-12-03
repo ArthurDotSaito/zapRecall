@@ -2,31 +2,34 @@ import styled from "styled-components"
 import logoImage from "../assets/img/logo.png"
 
 const StartPage = (props) => {
+
     return(
-        <InitialPageContainer setDisplayInitialScreen = {props.startPageData.startGame}>
-            <ImageContainer src={logoImage}>
-            </ImageContainer>
-            <TextElement>ZapRecall</TextElement>
-            <ButtonElement
-                onClick={() => props.startPageData.setStartGame(true)}
-                >Iniciar Recall</ButtonElement>
-        </InitialPageContainer>
+            <InitialPageContainer setDisplayInitialScreen = {props.startPageData.startGame}>
+                <ImageContainer src={logoImage}>
+                </ImageContainer>
+                <TextElement>ZapRecall</TextElement>
+                <ButtonElement
+                    onClick={() => props.startPageData.setStartGame(true)}
+                    >Iniciar Recall</ButtonElement>
+            </InitialPageContainer>
+
     )
 }
 
 const InitialPageContainer = styled.section`
     width: 100%;
     min-height: 100%;
+    display: ${props => !props.setDisplayInitialScreen ? "flex" : "none"};
     flex-direction: column;
     align-items: center;
-    justify-content: space-between;
-    display: ${props => !props.setDisplayInitialScreen ? "flex" : "none"};
+    justify-content: center;
+    margin-top: 180px;
 `
 const ImageContainer = styled.img`
     width: 35%;
     min-height: 20%;
     margin: 20px;
-
+    
 `
 const TextElement = styled.h1`
     display: flex;
