@@ -10,6 +10,7 @@ const StartPage = (props) => {
                 <TextElement>ZapRecall</TextElement>
                 <ButtonElement
                     onClick={() => props.startPageData.setStartGame(true)}
+                    data-test="start-btn"
                     >Iniciar Recall</ButtonElement>
             </InitialPageContainer>
 

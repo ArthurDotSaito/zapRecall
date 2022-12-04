@@ -3,11 +3,18 @@ import styled from "styled-components"
 import { cards } from "../Deck"
 import playIcon from "../assets/img/seta_play.png"
 import turnIcon from "../assets/img/seta_virar.png"
+import rightIcon from "../assets/img/icone_certo.png"
+import wrongIcon from "../assets/img/icone_erro.png"
+import almostIcon from "../assets/img/icone_quase.png"
 
 const Cards = (props) =>{
     const [clickToOpenQuestion, setClickToOpenQuestion] = React.useState([]);
     const [openedQuestion, setOpenedQuestion] = React.useState([]);
     const [playIconTrue, setPlayIconTrue] = React.useState(true);
+    const [rightIconTrue, setRightIconTrue] = React.useState(false);
+    const [almostIconTrue, setAlmostIconTrue] = React.useState(false);
+    const [wrongIconTrue, setWrongIconTrue] = React.useState(false);
+    const [iconAnswer, setIconAnswer] = React.useState(cards.map(() => playIcon))
     const [clickToOpenAnswer, setClickToOpenAnswer] = React.useState([]);
     const [answerCategory, setAnswerCategory] = React.useState(cards.map(() => "notAnswered"));
     const [enableEvent, setEnableEvent] = React.useState(cards.map(() => true));
@@ -23,29 +30,42 @@ const Cards = (props) =>{
     }
 
     function answerQuestion(category, index){
-        answerCategory[index] = category;
         enableEvent[index] = false;
         setAnswerCategory(answerCategory);
         setEnableEvent(enableEvent);
         setClickToOpenQuestion([]);
         setOpenedQuestion([]);
         setClickToOpenAnswer([]);
-        props.cardsData.setNumberOfCards(props.cardsData.numberOfCards + 1)
+        props.cardsData.setNumberOfCards(props.cardsData.numberOfCards + 1);
+        if(category === 'wrongAnswer'){
+            iconAnswer[index] = wrongIcon;
+            setIconAnswer(iconAnswer);
+        }else if(category === 'rightAnswer'){
+            iconAnswer[index] = rightIcon;
+            setIconAnswer(iconAnswer);
+        }else{
+            iconAnswer[index] = almostIcon;
+            setIconAnswer(iconAnswer);
+        }
     }
     
     const CardList = cards.map((card,index) => (
-        <CardUL key={index + 1}>
+        <CardUL key={index + 1} data-test="flashcard">
             <FrontViewQuestion 
                 displayCard = {!clickToOpenQuestion.includes(index)} 
                 answeredCategory = {answerCategory[index]}
                 disabled = {enableEvent[index]}
-                disa>
+                data-test="flashcard-text"
+                >
                 Pergunta {index+1}
                 <img 
                     type = "button"
-                    src = {(playIconTrue) && playIcon}
+                    src = {(iconAnswer[index])}
                     onClick = {() => openQuestion(index)}
                     alt = "playIcon"
+                    data-test = {(iconAnswer[index] === wrongIcon) ? "no-icon":
+                                (iconAnswer[index] === rightIcon) ? "zap-icon":
+                                (iconAnswer[index] === almostIcon) ? "partial-icon":"play-btn"}
                 ></img>
             </FrontViewQuestion>
             <BackViewQuestion displayCard = {openedQuestion.includes(index)}>
@@ -54,6 +74,7 @@ const Cards = (props) =>{
                     src = {turnIcon}
                     onClick = {() => showAnswer(index)}
                     alt = "turnIcon"
+                    data-test="turn-btn"
                 >
                 </img>
             </BackViewQuestion>
@@ -62,15 +83,18 @@ const Cards = (props) =>{
                 <AnswerButtonContainer>
                     <AnswerButton 
                         onClick = {() => answerQuestion("wrongAnswer", index)}
-                        backgroundColor = '#FF3030'>
+                        backgroundColor = '#FF3030'
+                        data-test = "no-btn">
                     Não lembrei</AnswerButton>
                     <AnswerButton 
                         onClick = {() => answerQuestion("almostRightAnswer", index)}
-                        backgroundColor = '#FF922E'>
+                        backgroundColor = '#FF922E'
+                        data-test="partial-btn">
                     Quase não lembrei</AnswerButton>
                     <AnswerButton 
                         onClick = {() => answerQuestion("rightAnswer", index)}
-                        backgroundColor = '#2FBE34'>
+                        backgroundColor = '#2FBE34'
+                        data-test="zap-btn">
                     Zap!</AnswerButton>
                 </AnswerButtonContainer>
             </FrontViewAnswer>

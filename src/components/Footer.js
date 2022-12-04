@@ -3,7 +3,9 @@ import styled from "styled-components"
 const Footer = (props) =>{
 
     return(
-        <FooterContainer setDisplayFooter={props.footerData.startGame}>
+        <FooterContainer 
+            setDisplayFooter={props.footerData.startGame}
+            data-test="footer">
             <p>{props.footerData.numberOfCards}/{props.footerData.totalNumberOfCards} CONCLUÍDOS</p>
         </FooterContainer>
     )
